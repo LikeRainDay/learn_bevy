@@ -35,6 +35,7 @@ strip = true
 dev = [
     "bevy/dynamic_linking",
 ]
+atlas = []
 
 # All of Bevy's default features exept for the audio related ones (bevy_audio, vorbis), since they clash with bevy_kira_audio
 #   and android_shared_stdcxx, since that is covered in `mobile`
@@ -75,6 +76,9 @@ winit = { version = "0.30", default-features = false }
 image = { version = "0.25", default-features = false }
 ## This greatly improves WGPU's performance due to its heavy use of trace! calls
 log = { version = "0.4", features = ["max_level_debug", "release_max_level_warn"] }
+bevy_ecs_tilemap = { git = "https://github.com/StarArawn/bevy_ecs_tilemap" }
+thiserror = "1.0.61"
+tiled = { version = "0.11.2", default-features = false }
 
 [build-dependencies]
 embed-resource = "1"

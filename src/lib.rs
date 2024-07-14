@@ -5,6 +5,9 @@ mod audio;
 mod loading;
 mod menu;
 mod player;
+mod tilemap;
+
+mod helpers;
 
 use crate::actions::ActionsPlugin;
 use crate::audio::InternalAudioPlugin;
@@ -16,6 +19,8 @@ use bevy::app::App;
 #[cfg(debug_assertions)]
 use bevy::diagnostic::{FrameTimeDiagnosticsPlugin, LogDiagnosticsPlugin};
 use bevy::prelude::*;
+use bevy_ecs_tilemap::TilemapPlugin;
+use crate::tilemap::TilePlugin;
 
 // This example game uses States to separate logic
 // See https://bevy-cheatbook.github.io/programming/states.html
@@ -37,10 +42,12 @@ impl Plugin for GamePlugin {
     fn build(&self, app: &mut App) {
         app.init_state::<GameState>().add_plugins((
             LoadingPlugin,
+            TilemapPlugin,
             MenuPlugin,
             ActionsPlugin,
             InternalAudioPlugin,
             PlayerPlugin,
+            TilePlugin
         ));
 
         #[cfg(debug_assertions)]
