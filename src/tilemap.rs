@@ -1,12 +1,12 @@
-use bevy::app::Startup;
-use crate::helpers;
-use bevy::prelude::{App, AssetServer, Commands, Handle, Plugin, Res};
+use bevy::prelude::{App, AssetServer, Commands, Handle, OnEnter, Plugin, Res};
+
+use crate::{GameState, helpers};
 
 pub struct TilePlugin;
 
 impl Plugin for TilePlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Startup, startup);
+        app.add_systems(OnEnter(GameState::Playing), startup);
     }
 }
 
