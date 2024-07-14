@@ -43,6 +43,7 @@ impl Plugin for GamePlugin {
         app.init_state::<GameState>().add_plugins((
             LoadingPlugin,
             TilemapPlugin,
+            helpers::tiled::TiledMapPlugin,
             MenuPlugin,
             ActionsPlugin,
             InternalAudioPlugin,
