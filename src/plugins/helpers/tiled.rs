@@ -17,7 +17,7 @@ use std::path::Path;
 use std::sync::Arc;
 
 use bevy::{
-    asset::{io::Reader, AssetLoader, AssetPath, AsyncReadExt},
+    asset::{AssetLoader, AssetPath, AsyncReadExt, io::Reader},
     log,
     prelude::{
         Added, Asset, AssetApp, AssetEvent, AssetId, Assets, Bundle, Commands, Component,
@@ -27,8 +27,9 @@ use bevy::{
     reflect::TypePath,
     utils::HashMap,
 };
+use bevy::app::Startup;
+use bevy::math::UVec2;
 use bevy_ecs_tilemap::prelude::*;
-
 use thiserror::Error;
 
 #[derive(Default)]
@@ -348,7 +349,7 @@ pub fn process_loaded_maps(
                                     #[cfg(not(feature = "atlas"))]
                                     TilemapTexture::Vector(_) =>
                                         *tiled_map.tile_image_offsets.get(&(tileset_index, layer_tile.id()))
-                                        .expect("The offset into to image vector should have been saved during the initial load."),
+                                            .expect("The offset into to image vector should have been saved during the initial load."),
                                     #[cfg(not(feature = "atlas"))]
                                     _ => unreachable!()
                                 };
