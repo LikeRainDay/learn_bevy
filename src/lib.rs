@@ -1,26 +1,17 @@
 #![allow(clippy::type_complexity)]
 
-mod actions;
-mod audio;
-mod loading;
-mod menu;
-mod player;
-mod tilemap;
-
-mod helpers;
-
-use crate::actions::ActionsPlugin;
-use crate::audio::InternalAudioPlugin;
-use crate::loading::LoadingPlugin;
-use crate::menu::MenuPlugin;
-use crate::player::PlayerPlugin;
-
 use bevy::app::App;
 #[cfg(debug_assertions)]
 use bevy::diagnostic::{FrameTimeDiagnosticsPlugin, LogDiagnosticsPlugin};
 use bevy::prelude::*;
 use bevy_ecs_tilemap::TilemapPlugin;
-use crate::tilemap::TilePlugin;
+use plugins::build_system;
+use plugins::actions::ActionsPlugin;
+
+mod plugins;
+mod components;
+mod resources;
+mod scenes;
 
 // This example game uses States to separate logic
 // See https://bevy-cheatbook.github.io/programming/states.html
@@ -41,14 +32,19 @@ pub struct GamePlugin;
 impl Plugin for GamePlugin {
     fn build(&self, app: &mut App) {
         app.init_state::<GameState>().add_plugins((
-            LoadingPlugin,
             TilemapPlugin,
-            helpers::tiled::TiledMapPlugin,
-            MenuPlugin,
+            // resources
+            resources::loading::LoadingPlugin,
+            resources::audio::InternalAudioPlugin,
+
+            // plugins
+            plugins::helpers::tiled::TiledMapPlugin,
+
+            // components
+            components::menu::MenuPlugin,
             ActionsPlugin,
-            InternalAudioPlugin,
             // PlayerPlugin,
-            TilePlugin
+            build_system::tilemap::TilePlugin
         ));
 
         #[cfg(debug_assertions)]

@@ -1,5 +1,15 @@
 use bevy::prelude::{ButtonInput, KeyCode, Res};
 
+pub trait TouchListener {
+
+    fn touch_listener(&self);
+
+    fn long_press(&self);
+
+    fn multi_press(&self);
+
+}
+
 pub enum GameControl {
     Up,
     Down,
