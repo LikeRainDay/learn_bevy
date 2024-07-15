@@ -6,6 +6,7 @@ pub enum SceneState {
     LoadingScene,
     MainMenuScene,
     OptionsScene,
+    GameScene,
     HelpScene,
     HeroSelectScene,
     ResultScene,

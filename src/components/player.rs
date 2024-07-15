@@ -1,6 +1,6 @@
 use crate::plugins::actions::Actions;
 use crate::resources::loading::TextureAssets;
-use crate::GameState;
+use crate::SceneState;
 use bevy::prelude::*;
 
 pub struct PlayerPlugin;
@@ -9,11 +9,11 @@ pub struct PlayerPlugin;
 pub struct Player;
 
 /// This plugin handles player related stuff like movement
-/// Player logic is only active during the State `GameState::Playing`
+/// Player logic is only active during the State `SceneState::Playing`
 impl Plugin for PlayerPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(OnEnter(GameState::Playing), spawn_player)
-            .add_systems(Update, move_player.run_if(in_state(GameState::Playing)));
+        app.add_systems(OnEnter(SceneState::GameScene), spawn_player)
+            .add_systems(Update, move_player.run_if(in_state(SceneState::GameScene)));
     }
 }
 

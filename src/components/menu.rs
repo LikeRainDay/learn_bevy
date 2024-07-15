@@ -1,16 +1,16 @@
 use crate::resources::loading::TextureAssets;
-use crate::GameState;
+use crate::SceneState;
 use bevy::prelude::*;
 
 pub struct MenuPlugin;
 
 /// This plugin is responsible for the game menu (containing only one button...)
-/// The menu is only drawn during the State `GameState::Menu` and is removed when that state is exited
+/// The menu is only drawn during the State `SceneState::Menu` and is removed when that state is exited
 impl Plugin for MenuPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(OnEnter(GameState::Menu), setup_menu)
-            .add_systems(Update, click_play_button.run_if(in_state(GameState::Menu)))
-            .add_systems(OnExit(GameState::Menu), cleanup_menu);
+        app.add_systems(OnEnter(SceneState::MainMenuScene), setup_menu)
+            .add_systems(Update, click_play_button.run_if(in_state(SceneState::MainMenuScene)))
+            .add_systems(OnExit(SceneState::MainMenuScene), cleanup_menu);
     }
 }
 
@@ -66,7 +66,7 @@ fn setup_menu(mut commands: Commands, textures: Res<TextureAssets>) {
                         ..Default::default()
                     },
                     button_colors,
-                    ChangeState(GameState::Playing),
+                    ChangeState(SceneState::GameScene),
                 ))
                 .with_children(|parent| {
                     parent.spawn(TextBundle::from_section(
@@ -176,13 +176,13 @@ fn setup_menu(mut commands: Commands, textures: Res<TextureAssets>) {
 }
 
 #[derive(Component)]
-struct ChangeState(GameState);
+struct ChangeState(SceneState);
 
 #[derive(Component)]
 struct OpenLink(&'static str);
 
 fn click_play_button(
-    mut next_state: ResMut<NextState<GameState>>,
+    mut next_state: ResMut<NextState<SceneState>>,
     mut interaction_query: Query<
         (
             &Interaction,
