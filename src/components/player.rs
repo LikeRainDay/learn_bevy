@@ -1,5 +1,5 @@
 use crate::plugins::actions::Actions;
-use crate::loading::TextureAssets;
+use crate::resources::loading::TextureAssets;
 use crate::GameState;
 use bevy::prelude::*;
 
