@@ -1,3 +1,5 @@
+mod loading;
+
 use bevy::prelude::States;
 
 #[derive(States, Default, Clone, Eq, PartialEq, Debug, Hash)]

@@ -24,6 +24,7 @@ impl Plugin for GamePlugin {
         app
             .init_state::<SceneState>()
             .add_plugins((
+                // third plugin
                 TilemapPlugin,
                 // components
                 components::menu::MenuPlugin,
