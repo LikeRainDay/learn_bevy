@@ -24,19 +24,16 @@ impl Plugin for GamePlugin {
         app
             .init_state::<SceneState>()
             .add_plugins((
-                // third plugin
                 TilemapPlugin,
-                // components
-                components::menu::MenuPlugin,
-                ActionsPlugin,
-                // PlayerPlugin,
                 build_system::tilemap::TilePlugin,
-                // resources
+                plugins::camera::CameraPlugin,
+                scenes::loading_scene::LoadingScenePlugin,
+
                 resources::loading::LoadingPlugin,
                 resources::audio::InternalAudioPlugin,
-
-                // plugins
                 plugins::helpers::tiled::TiledMapPlugin,
+                ActionsPlugin,
+                components::menu::MenuPlugin,
             ));
 
         #[cfg(debug_assertions)]

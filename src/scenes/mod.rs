@@ -1,4 +1,4 @@
-mod loading;
+pub mod loading_scene;
 
 use bevy::prelude::States;
 
