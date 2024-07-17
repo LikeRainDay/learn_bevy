@@ -29,11 +29,11 @@ impl Plugin for GamePlugin {
                 plugins::camera::CameraPlugin,
                 scenes::loading_scene::LoadingScenePlugin,
 
-                resources::loading::LoadingPlugin,
+                // resources::loading::LoadingPlugin,
                 resources::audio::InternalAudioPlugin,
                 plugins::helpers::tiled::TiledMapPlugin,
                 ActionsPlugin,
-                components::menu::MenuPlugin,
+                // components::menu::MenuPlugin,
             ));
 
         #[cfg(debug_assertions)]

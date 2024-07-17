@@ -27,7 +27,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                 height: Val::Percent(100.0),
                 ..Default::default()
             },
-            background_color: BackgroundColor(Color::BLACK),
+            background_color: BackgroundColor(Color::WHITE),
             ..Default::default()
         })
         .with_children(|parent| {
@@ -54,7 +54,7 @@ fn loader_bundle(
                 height: Val::Percent(100.0),
                 ..Default::default()
             },
-            background_color: BackgroundColor(Color::BLACK),
+            background_color: BackgroundColor(Color::WHITE),
             ..Default::default()
         });
 }
