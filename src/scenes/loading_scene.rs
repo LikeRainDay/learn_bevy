@@ -12,7 +12,6 @@ impl Plugin for LoadingScenePlugin {
     fn build(&self, app: &mut App) {
         let loading_state = LoadingState::new(SceneState::LoadingScene)
             .continue_to_state(SceneState::SplashScene)
-            .load_collection::<AudioAssets>()
             .load_collection::<TextureAssets>();
 
         app.add_loading_state(loading_state);
@@ -20,11 +19,11 @@ impl Plugin for LoadingScenePlugin {
 }
 
 // 声明加载资源
-#[derive(AssetCollection, Resource)]
-pub struct AudioAssets {
-    #[asset(path = "audio/flying.ogg")]
-    pub flying: Handle<AudioSource>,
-}
+// #[derive(AssetCollection, Resource)]
+// pub struct AudioAssets {
+//     #[asset(path = "audio/flying.ogg")]
+//     pub flying: Handle<AudioSource>,
+// }
 
 #[derive(AssetCollection, Resource)]
 pub struct TextureAssets {
