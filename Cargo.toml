@@ -68,18 +68,18 @@ bevy = { version = "0.14", default-features = false, features = [
 ] }
 bevy_kira_audio = { version = "0.20" }
 bevy_asset_loader = { version = "0.21" }
-rand = { version = "0.8.3" }
+rand = { version = "0.8.5" }
 webbrowser = { version = "1", features = ["hardened"] }
 
 # keep the following in sync with Bevy's dependencies
-winit = { version = "0.30", default-features = false }
-image = { version = "0.25", default-features = false }
+winit = { version = "0.30.3", default-features = false }
+image = { version = "0.25.1", default-features = false }
 ## This greatly improves WGPU's performance due to its heavy use of trace! calls
-log = { version = "0.4", features = ["max_level_debug", "release_max_level_warn"] }
+log = { version = "0.4.22", features = ["max_level_debug", "release_max_level_warn"] }
 bevy_ecs_tilemap = { git = "https://github.com/StarArawn/bevy_ecs_tilemap" }
 thiserror = "1.0.61"
-tiled = { version = "0.11.2", default-features = false }
+tiled = { version = "0.12.0", default-features = false }
 bevy_mod_picking = "0.20.1"
 
 [build-dependencies]
-embed-resource = "1"
+embed-resource = "2.4.3"

@@ -8,7 +8,7 @@ use std::io::Cursor;
 use bevy::asset::AssetMetaCheck;
 use bevy::DefaultPlugins;
 use bevy::prelude::*;
-use bevy::window::PrimaryWindow;
+use bevy::window::{PrimaryWindow, WindowResolution};
 use bevy::winit::WinitWindows;
 use winit::window::Icon;
 
@@ -22,6 +22,7 @@ fn main() {
             DefaultPlugins
                 .set(WindowPlugin {
                     primary_window: Some(Window {
+                        resolution: WindowResolution::new(645.0, 1398.0),
                         title: "Bevy game".to_string(), // ToDo
                         // Bind to canvas included in `index.html`
                         canvas: Some("#bevy".to_owned()),

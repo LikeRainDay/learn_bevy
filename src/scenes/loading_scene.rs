@@ -1,67 +1,35 @@
-use bevy::color::Color;
 use bevy::prelude::*;
-use bevy::ui::{BackgroundColor, Style, Val};
+use bevy_asset_loader::asset_collection::AssetCollection;
+use bevy_asset_loader::prelude::{ConfigureLoadingState, LoadingState};
+use bevy_asset_loader::prelude::*;
+use bevy_kira_audio::AudioSource;
 
 use crate::scenes::SceneState;
-
-#[derive(Resource)]
-struct LoadingSceneData {
-    user_interface_root: Entity,
-}
 
 pub struct LoadingScenePlugin;
 
 impl Plugin for LoadingScenePlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(OnEnter(SceneState::LoadingScene), setup);
-        // TODO 增加中间状态进行加载资源
-        app.add_systems(OnExit(SceneState::LoadingScene), cleanup);
+        let loading_state = LoadingState::new(SceneState::LoadingScene)
+            .continue_to_state(SceneState::SplashScene)
+            .load_collection::<AudioAssets>()
+            .load_collection::<TextureAssets>();
+
+        app.add_loading_state(loading_state);
     }
 }
 
-fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
-    let user_interface_root = commands
-        .spawn(NodeBundle {
-            style: Style {
-                width: Val::Percent(100.0),
-                height: Val::Percent(100.0),
-                ..Default::default()
-            },
-            background_color: BackgroundColor(Color::WHITE),
-            ..Default::default()
-        })
-        .with_children(|parent| {
-            loader_bundle(parent, &asset_server);
-        })
-        .id();
-
-    commands
-        .insert_resource(LoadingSceneData {
-            user_interface_root
-        });
+// 声明加载资源
+#[derive(AssetCollection, Resource)]
+pub struct AudioAssets {
+    #[asset(path = "audio/flying.ogg")]
+    pub flying: Handle<AudioSource>,
 }
 
-
-fn loader_bundle(
-    root: &mut ChildBuilder,
-    asset_server: &Res<AssetServer>,
-) {
-    root.spawn(
-        // Border
-        NodeBundle {
-            style: Style {
-                width: Val::Percent(100.0),
-                height: Val::Percent(100.0),
-                ..Default::default()
-            },
-            background_color: BackgroundColor(Color::WHITE),
-            ..Default::default()
-        });
+#[derive(AssetCollection, Resource)]
+pub struct TextureAssets {
+    #[asset(path = "textures/bevy.png")]
+    pub bevy: Handle<Image>,
+    #[asset(path = "textures/github.png")]
+    pub github: Handle<Image>,
 }
-
-fn cleanup(mut commands: Commands, loading_scene_data: Res<LoadingSceneData>) {
-    commands
-        .entity(loading_scene_data.user_interface_root)
-        .despawn_recursive()
-}
-

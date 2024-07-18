@@ -1,4 +1,6 @@
 pub mod loading_scene;
+pub mod splash_scene;
+pub mod game_scene;
 
 use bevy::prelude::States;
 
@@ -6,9 +8,12 @@ use bevy::prelude::States;
 pub enum SceneState {
     #[default]
     LoadingScene,
+    SplashScene,
+    GameScene,
+
+    // 待处理
     MainMenuScene,
     OptionsScene,
-    GameScene,
     HelpScene,
     HeroSelectScene,
     ResultScene,

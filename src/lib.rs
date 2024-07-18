@@ -6,9 +6,6 @@ use bevy::diagnostic::{FrameTimeDiagnosticsPlugin, LogDiagnosticsPlugin};
 use bevy::prelude::*;
 use bevy_ecs_tilemap::TilemapPlugin;
 
-use plugins::actions::ActionsPlugin;
-use plugins::build_system;
-
 use crate::scenes::SceneState;
 
 mod plugins;
@@ -25,14 +22,15 @@ impl Plugin for GamePlugin {
             .init_state::<SceneState>()
             .add_plugins((
                 TilemapPlugin,
-                build_system::tilemap::TilePlugin,
                 plugins::camera::CameraPlugin,
                 scenes::loading_scene::LoadingScenePlugin,
+                scenes::splash_scene::SplashScenePlugin,
+                scenes::game_scene::GameScenePlugin,
 
+                // build_system::tilemap::TilePlugin,
                 // resources::loading::LoadingPlugin,
-                resources::audio::InternalAudioPlugin,
-                plugins::helpers::tiled::TiledMapPlugin,
-                ActionsPlugin,
+                // resources::audio::InternalAudioPlugin,
+                // plugins::helpers::tiled::TiledMapPlugin,
                 // components::menu::MenuPlugin,
             ));
 
