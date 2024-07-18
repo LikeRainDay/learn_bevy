@@ -22,10 +22,11 @@ impl Plugin for GamePlugin {
             .init_state::<SceneState>()
             .add_plugins((
                 TilemapPlugin,
-                plugins::camera::CameraPlugin,
+                plugins::GamePlugin,
                 scenes::loading_scene::LoadingScenePlugin,
                 scenes::splash_scene::SplashScenePlugin,
                 scenes::game_scene::GameScenePlugin,
+
 
                 // build_system::tilemap::TilePlugin,
                 // resources::loading::LoadingPlugin,

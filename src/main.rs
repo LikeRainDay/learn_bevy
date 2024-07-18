@@ -10,6 +10,7 @@ use bevy::DefaultPlugins;
 use bevy::prelude::*;
 use bevy::window::{PrimaryWindow, WindowResolution};
 use bevy::winit::WinitWindows;
+use bevy_inspector_egui::quick::WorldInspectorPlugin;
 use winit::window::Icon;
 
 use bevy_game::GamePlugin;
@@ -38,6 +39,8 @@ fn main() {
                     ..default()
                 }),
         )
+        // 世界面板
+        .add_plugins(WorldInspectorPlugin::new())
         .add_plugins(GamePlugin)
         .add_systems(Startup, set_window_icon)
         .run();

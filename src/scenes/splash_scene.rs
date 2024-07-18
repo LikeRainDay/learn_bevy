@@ -95,7 +95,7 @@ fn click_play_button(
         // 查询时缩小范围, 提升查询的性能和效率(仅查询出 button 且 处于变更状态的数据)
         (Changed<Interaction>, With<Button>)>,
 ) {
-    for item in &mut interaction_query {
+    for mut item in &mut interaction_query {
         // 处理用户的按压逻辑
         match *item.0 {
             Interaction::Pressed => {
