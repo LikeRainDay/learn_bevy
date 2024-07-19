@@ -15,6 +15,8 @@ use winit::window::Icon;
 
 use bevy_game::GamePlugin;
 
+mod config;
+
 fn main() {
     App::new()
         .insert_resource(Msaa::Off)
@@ -23,8 +25,8 @@ fn main() {
             DefaultPlugins
                 .set(WindowPlugin {
                     primary_window: Some(Window {
-                        resolution: WindowResolution::new(645.0, 1398.0),
-                        title: "Bevy game".to_string(), // ToDo
+                        resolution: WindowResolution::new(config::MONITOR_HEIGHT, config::MONITOR_WIDTH),
+                        title: config::GAME_NAME,
                         // Bind to canvas included in `index.html`
                         canvas: Some("#bevy".to_owned()),
                         fit_canvas_to_parent: true,

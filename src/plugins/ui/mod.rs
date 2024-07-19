@@ -12,7 +12,7 @@ impl Plugin for UiPlugin {
             .add_systems(OnEnter(SceneState::GameScene), home::avatar_ui::setup)
             .add_systems(OnEnter(SceneState::GameScene), home::building_ui::setup)
             .add_systems(OnEnter(SceneState::GameScene), home::main_ui::setup)
-            .add_systems(OnEnter(SceneState::GameScene), home::main_ui::click_event)
+            .add_systems(Update, home::main_ui::click_event)
             .add_systems(OnExit(SceneState::GameScene), home::main_ui::cleanup);
     }
 }

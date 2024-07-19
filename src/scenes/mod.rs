@@ -1,6 +1,5 @@
 pub mod loading_scene;
 pub mod splash_scene;
-pub mod game_scene;
 
 use bevy::prelude::States;
 

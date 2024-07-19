@@ -13,7 +13,6 @@ mod components;
 mod resources;
 mod scenes;
 
-
 pub struct GamePlugin;
 
 impl Plugin for GamePlugin {
@@ -24,7 +23,7 @@ impl Plugin for GamePlugin {
                 TilemapPlugin,
                 scenes::loading_scene::LoadingScenePlugin,
                 scenes::splash_scene::SplashScenePlugin,
-                scenes::game_scene::GameScenePlugin,
+                plugins::GamePlugin,
             ));
 
         #[cfg(debug_assertions)]
