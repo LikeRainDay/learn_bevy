@@ -1,7 +1,5 @@
-use bevy::prelude::*;
+pub mod main_ui;
+pub mod avatar_ui;
+pub mod building_ui;
 
-pub struct HomeUiPlugin;
-impl Plugin for HomeUiPlugin {
-    fn build(&self, app: &mut App) {
-    }
-}
+use bevy::prelude::*;

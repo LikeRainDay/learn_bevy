@@ -2,7 +2,6 @@ use bevy::prelude::*;
 use bevy_asset_loader::asset_collection::AssetCollection;
 use bevy_asset_loader::prelude::{ConfigureLoadingState, LoadingState};
 use bevy_asset_loader::prelude::*;
-use bevy_kira_audio::AudioSource;
 
 use crate::scenes::SceneState;
 

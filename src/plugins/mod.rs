@@ -6,7 +6,6 @@ mod input;
 mod player;
 mod ui;
 
-
 pub struct GamePlugin;
 impl Plugin for GamePlugin {
     fn build(&self, app: &mut App) {
