@@ -10,7 +10,6 @@ impl Plugin for SplashScenePlugin {
         app.add_systems(OnEnter(SceneState::SplashScene), setup);
         // 监听按钮的点击事件 仅在当前场景下
         app.add_systems(Update, click_play_button.run_if(in_state(SceneState::SplashScene)));
-        app.add_systems(OnExit(SceneState::SplashScene), cleanup);
     }
 }
 
@@ -38,17 +37,19 @@ struct ChangeState(SceneState);
 fn setup(mut commands: Commands, textures: Res<TextureAssets>) {
     info!("Splash");
     commands
-        .spawn((NodeBundle {
-            style: Style {
-                width: Val::Percent(100.0),
-                height: Val::Percent(100.0),
-                flex_direction: FlexDirection::Column,
-                align_items: AlignItems::Center,
-                justify_content: JustifyContent::Center,
+        .spawn((
+            StateScoped(SceneState::SplashScene),
+            NodeBundle {
+                style: Style {
+                    width: Val::Percent(100.0),
+                    height: Val::Percent(100.0),
+                    flex_direction: FlexDirection::Column,
+                    align_items: AlignItems::Center,
+                    justify_content: JustifyContent::Center,
+                    ..Default::default()
+                },
                 ..Default::default()
-            },
-            ..Default::default()
-        }, Splash,
+            }, Splash,
         ))
         .with_children(|parent| {
             let button_colors = ButtonColors::default();
@@ -64,7 +65,7 @@ fn setup(mut commands: Commands, textures: Res<TextureAssets>) {
                     },
                     background_color: button_colors.normal.into(),
                     ..Default::default()
-                }, button_colors, ChangeState(SceneState::MainMenuScene),
+                }, button_colors, ChangeState(SceneState::GameScene),
                 ))
                 .with_children(|parent| {
                     parent
@@ -113,11 +114,3 @@ fn click_play_button(
         }
     }
 }
-
-fn cleanup(mut commands: Commands, splash: Query<Entity, With<Splash>>) {
-    for entity in splash.iter() {
-        commands.entity(entity).despawn_recursive();
-    }
-}
-
-

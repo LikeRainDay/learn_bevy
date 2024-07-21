@@ -1,5 +1,7 @@
 use bevy::prelude::*;
 
+use crate::scenes::SceneState;
+
 const MAIN_COLLECTION_WIDTH: f32 = 50.0;
 const MAIN_COLLECTION_HEIGHT: f32 = 80.0;
 const MAIN_COLLECTION_SPACING: f32 = 10.0;
@@ -25,6 +27,7 @@ pub struct ExpandCollectionPlacement;
 pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands
         .spawn((
+            StateScoped(SceneState::GameScene),
             ButtonBundle {
                 style: Style {
                     width: Val::Px(MAIN_COLLECTION_WIDTH),
@@ -53,6 +56,7 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     CHILDRENS.iter().enumerate().for_each(|(index, child)| {
         commands
             .spawn((
+                StateScoped(SceneState::GameScene),
                 ButtonBundle {
                     style: Style {
                         width: Val::Px(CHILDREN_COLLECTION_WIDTH),
@@ -79,18 +83,6 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                     ));
             });
     })
-}
-
-pub fn cleanup(mut commands: Commands,
-               collection_placement: Query<Entity, With<CollectionPlacement>>,
-               expand_collection_placement: Query<Entity, With<ExpandCollectionPlacement>>,
-) {
-    for entity in collection_placement.iter() {
-        commands.entity(entity).despawn_recursive();
-    }
-    for entity in expand_collection_placement.iter() {
-        commands.entity(entity).despawn_recursive();
-    }
 }
 
 /**

@@ -19,6 +19,7 @@ impl Plugin for GamePlugin {
     fn build(&self, app: &mut App) {
         app
             .init_state::<SceneState>()
+            .enable_state_scoped_entities::<SceneState>()
             .add_plugins((
                 TilemapPlugin,
                 scenes::loading_scene::LoadingScenePlugin,

@@ -11,6 +11,7 @@ impl Plugin for GamePlugin {
     fn build(&self, app: &mut App) {
         app
             .add_plugins(camera::CameraPlugin)
-            .add_plugins(ui::UiPlugin);
+            .add_plugins(ui::UiPlugin)
+            .add_plugins(building::BuildingPlugin);
     }
 }
