@@ -24,7 +24,7 @@ pub struct ExpandCollectionPlacement;
 /**
 主界面： 底部 右侧 功能收藏区域
  */
-pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
+pub fn setup(mut commands: Commands) {
     commands
         .spawn((
             StateScoped(SceneState::GameScene),
@@ -106,7 +106,8 @@ pub fn click_event(
         }
     }
 
-    for mut item in (&mut interaction_query_with_collection) {
+
+    for mut item in &mut interaction_query_with_collection {
         match *item.0 {
             Interaction::Pressed => {
                 let all_visible = interaction_query_with_expand.iter().all(|(_, &visibility)| visibility == Visibility::Visible);

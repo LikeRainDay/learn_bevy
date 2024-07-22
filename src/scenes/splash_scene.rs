@@ -1,6 +1,5 @@
 use bevy::prelude::*;
 
-use crate::scenes::loading_scene::TextureAssets;
 use crate::scenes::SceneState;
 
 pub struct SplashScenePlugin;
@@ -34,7 +33,7 @@ struct Splash;
 #[derive(Component)]
 struct ChangeState(SceneState);
 
-fn setup(mut commands: Commands, textures: Res<TextureAssets>) {
+fn setup(mut commands: Commands) {
     info!("Splash");
     commands
         .spawn((

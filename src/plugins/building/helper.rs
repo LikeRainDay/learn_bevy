@@ -349,6 +349,7 @@ pub fn process_loaded_maps(
                                         *tiled_map.tile_image_offsets.get(&(tileset_index, layer_tile.id()))
                                             .expect("The offset into to image vector should have been saved during the initial load."),
                                     #[cfg(not(feature = "atlas"))]
+                                    TilemapTexture::TextureContainer(_) =>unreachable!(),
                                     _ => unreachable!()
                                 };
 

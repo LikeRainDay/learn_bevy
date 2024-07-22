@@ -17,3 +17,8 @@
 # Learn
 1. [Sprite-animation Demo](https://bevyengine.org/examples/2d-rendering/sprite-animation/)
 2. [Bevy ai](https://github.com/zkat/big-brain)
+
+# Static Analysis
+```shell
+cargo clippy --workspace --all-targets --all-features -- -Dwarnings
+```
