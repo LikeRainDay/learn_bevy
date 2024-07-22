@@ -20,7 +20,7 @@ enum GestureType {
 }
 
 #[derive(Resource, Default)]
-struct TouchTracker {
+pub struct TouchTracker {
     pub camera_start_pos: Vec3,
     pub time_start_touch: f32,
     pub gesture_type: GestureType,
@@ -58,16 +58,16 @@ pub fn camera_movement(
 
     if touches.len() == 2 {
         tracker.gesture_type = GestureType::Pinch;
-        let last_a = if tracker.last_touch_b.is_none() {
-            touches[0].position();
+        let last_a: Vec2 = if tracker.last_touch_b.is_none() {
+            touches[0].position()
         } else {
-            tracker.last_touch_a.unwrap_or(touches[0].position());
+            tracker.last_touch_a.unwrap_or(touches[0].position())
         };
 
-        let last_b = if tracker.last_touch_b.is_none() {
-            touches[1].position();
+        let last_b:Vec2 = if tracker.last_touch_b.is_none() {
+            touches[1].position()
         } else {
-            tracker.last_touch_b.unwrap_or(touches[1].position());
+            tracker.last_touch_b.unwrap_or(touches[1].position())
         };
         let delta_a = touches[0].position() - last_a;
         let delta_b = touches[1].position() - last_b;
