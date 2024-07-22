@@ -18,7 +18,13 @@
 1. [Sprite-animation Demo](https://bevyengine.org/examples/2d-rendering/sprite-animation/)
 2. [Bevy ai](https://github.com/zkat/big-brain)
 
-# Static Analysis
+# CLI
+
+- Static analysis
 ```shell
 cargo clippy --workspace --all-targets --all-features -- -Dwarnings
+```
+- Code Format
+```shell
+cargo fmt --all -- --check
 ```

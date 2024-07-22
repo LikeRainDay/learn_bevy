@@ -145,9 +145,16 @@ jobs:
         with:
           files: target/dist/assets/ target/dist/credits/ target/dist/${{ env.GAME_EXECUTABLE_NAME }}.exe
           dest: ${{ env.GAME_EXECUTABLE_NAME }}_windows.zip
+      - name: Prepare Version
+        run: |
+          $version = "${{ env.VERSION }}"
+          $version = $version.substring(1)
+          echo "##[set-output name=version;]$version"
+        shell: pwsh
+        id: prep_version
       - name: Create Installer
         if: ${{ env.BUILD_INSTALLER }}
-        run: dotnet build -p:Version=${{ env.VERSION }} -c Release build/windows/installer/Installer.wixproj --output installer
+        run: dotnet build -p:Version=${{ steps.prep_version.outputs.version }} -c Release build/windows/installer/Installer.wixproj --output installer
       - name: Upload release
         uses: svenstaro/upload-release-action@v2
         with:
@@ -190,7 +197,7 @@ jobs:
           rustup target add wasm32-unknown-unknown
       - name: Build Release
         run: |
-          trunk build --release
+          trunk build --release --cfg=web_sys_unstable_apis
       - name: Optimize Wasm
         uses: NiklasEi/wasm-opt-action@v2
         with:
