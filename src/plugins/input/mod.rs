@@ -10,6 +10,6 @@ impl Plugin for InputHandlePlugin {
     fn build(&self, app: &mut App) {
         app
             .insert_resource(camera::TouchTracker::default())
-            .add_systems(OnEnter(SceneState::GameScene), camera::camera_movement);
+            .add_systems(Update, camera::camera_movement.run_if(in_state(SceneState::GameScene)));
     }
 }
