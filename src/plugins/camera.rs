@@ -9,6 +9,9 @@ pub struct OrthographicCamera;
 
 pub struct CameraPlugin;
 
+#[derive(Component)]
+pub struct UiCamera;
+
 impl Plugin for CameraPlugin {
     fn build(&self, app: &mut App) {
         app.add_systems(Startup, spawn_user_interface_camera);
@@ -23,8 +26,10 @@ impl Plugin for CameraPlugin {
 
 fn spawn_user_interface_camera(mut commands: Commands) {
     commands
-        .spawn(Camera2dBundle::default())
-        .insert(Name::new("UserInterfaceCamera"))
+        .spawn((
+            Camera2dBundle::default(),
+            UiCamera
+        ))
         .insert(UserInterfaceCamera);
 }
 
