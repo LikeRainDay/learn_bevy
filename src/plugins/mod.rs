@@ -12,6 +12,8 @@ impl Plugin for GamePlugin {
         app
             .add_plugins(camera::CameraPlugin)
             .add_plugins(ui::UiPlugin)
-            .add_plugins(building::BuildingPlugin);
+            .add_plugins(building::BuildingPlugin)
+            .add_plugins(input::InputHandlePlugin)
+        ;
     }
 }
