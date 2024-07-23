@@ -14,6 +14,7 @@ impl Plugin for GamePlugin {
             .add_plugins(ui::UiPlugin)
             .add_plugins(building::BuildingPlugin)
             .add_plugins(input::InputHandlePlugin)
+            .add_plugins(player::PlayerHandlePlugin)
         ;
     }
 }

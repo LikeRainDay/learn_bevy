@@ -9,6 +9,7 @@
 2. [bevy ui](https://github.com/jkb0o/belly)
 3. [bevy-inspector-gui](https://github.com/jakobhellermann/bevy-inspector-egui)
 4. [virtual_joystick](https://github.com/SergioRibera/virtual_joystick)
+5. [bevy-spine](https://github.com/jabuwu/bevy_spine?tab=readme-ov-file)
 
 # Scene
 

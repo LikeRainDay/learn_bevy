@@ -5,7 +5,7 @@ use bevy::app::App;
 use bevy::diagnostic::{FrameTimeDiagnosticsPlugin, LogDiagnosticsPlugin};
 use bevy::prelude::*;
 use bevy_ecs_tilemap::TilemapPlugin;
-
+use bevy_spine::SpinePlugin;
 use crate::scenes::SceneState;
 
 mod plugins;
@@ -22,6 +22,7 @@ impl Plugin for GamePlugin {
             .enable_state_scoped_entities::<SceneState>()
             .add_plugins((
                 TilemapPlugin,
+                SpinePlugin,
                 scenes::loading_scene::LoadingScenePlugin,
                 scenes::splash_scene::SplashScenePlugin,
                 plugins::GamePlugin,

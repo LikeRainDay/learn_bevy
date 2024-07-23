@@ -81,6 +81,7 @@ thiserror = "1.0.61"
 tiled = { version = "0.12.0", default-features = false }
 bevy_mod_picking = "0.20.1"
 bevy-inspector-egui = "0.25.1"
+bevy_spine = "0.10.1"
 
 [build-dependencies]
 embed-resource = "2.4.3"
