@@ -1,5 +1,6 @@
 use bevy::asset::AssetServer;
 use bevy::prelude::*;
+use bevy_ecs_tilemap::prelude::TilemapRenderSettings;
 use crate::plugins::building::helper;
 
 /**
@@ -14,6 +15,12 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 
     commands.spawn(helper::TiledMapBundle {
         tiled_map: map_handle,
+        render_settings: TilemapRenderSettings {
+            // Map size is 12x12 so we'll have render chunks that are:
+            // 12 tiles wide and 1 tile tall.
+            render_chunk_size: UVec2::new(3, 1),
+            y_sort: true,
+        },
         ..Default::default()
     });
 }
