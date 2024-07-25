@@ -7,7 +7,6 @@ pub fn setup(
     mut commands: Commands,
     mut skeletons: ResMut<Assets<SkeletonData>>,
 ) {
-    commands.spawn(Camera2dBundle::default());
 
     let skeleton = SkeletonData::new_from_json(
         asset_server.load("spineboy/export/spineboy-pro.json"),
@@ -17,7 +16,7 @@ pub fn setup(
 
     commands.spawn(SpineBundle {
         skeleton: skeleton_handle.clone(),
-        transform: Transform::from_xyz(0., -200., 0.),
+        transform: Transform::from_xyz(0., -200., 10.),
         ..Default::default()
     });
 }
@@ -33,7 +32,7 @@ pub fn on_spawn(
                           animation_state,
                           ..
                       }) = spine.as_mut();
-            skeleton.set_scale(Vec2::splat(0.5));
+            skeleton.set_scale(Vec2::splat(0.1));
             let _ = animation_state.set_animation_by_name(0, "run", true);
         }
     }
