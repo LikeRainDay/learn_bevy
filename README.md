@@ -10,6 +10,7 @@
 3. [bevy-inspector-gui](https://github.com/jakobhellermann/bevy-inspector-egui)
 4. [virtual_joystick](https://github.com/SergioRibera/virtual_joystick)
 5. [bevy-spine](https://github.com/jabuwu/bevy_spine?tab=readme-ov-file)
+6. [rapier](https://rapier.rs/docs/user_guides/rust/getting_started)
 
 # Scene
 
