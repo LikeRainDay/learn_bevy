@@ -32,7 +32,7 @@ pub fn update_cursor_pos(
 pub fn place_entity(
     mut commands: Commands,
     cursor_pos: Res<CursorPos>,
-    input: Res<InputMove<MouseButton>>,
+    // input: Res<InputMove<MouseButton>>,
     tilemap_q: Query<(
         &TilemapGridSize,
         &TilemapSize,
