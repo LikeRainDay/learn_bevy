@@ -1,10 +1,7 @@
-use bevy::color::palettes;
+use bevy::input::mouse::MouseButtonInput;
 use bevy::prelude::*;
-use bevy::utils::tracing;
 use bevy_ecs_tilemap::prelude::*;
-use bevy_inspector_egui::bevy_egui::systems::InputEvents;
-use bevy_mod_picking::pointer::InputMove;
-use log::log;
+use bevy_spine::{SkeletonData, SpineBundle};
 
 #[derive(Resource)]
 pub struct CursorPos(Vec2);
@@ -32,7 +29,9 @@ pub fn update_cursor_pos(
 pub fn place_entity(
     mut commands: Commands,
     cursor_pos: Res<CursorPos>,
-    // input: Res<InputMove<MouseButton>>,
+    mouse_button_input: Res<ButtonInput<MouseButton>>,
+    asset_server: Res<AssetServer>,
+    mut skeletons: ResMut<Assets<SkeletonData>>,
     tilemap_q: Query<(
         &TilemapGridSize,
         &TilemapSize,
@@ -40,7 +39,7 @@ pub fn place_entity(
         &TileStorage,
         &Transform
     )>) {
-    let tile_pos: TilePos;
+    let mut tile_pos: TilePos = Default::default();
     for (grid_size, size, tilemap_type, storage, transform) in tilemap_q.iter() {
         let cur_pos = cursor_pos.0;
 
@@ -55,6 +54,30 @@ pub fn place_entity(
             TilePos::from_world_pos(&cursor_in_map_pos, size, grid_size, tilemap_type)
         {
             tile_pos = tile_pos_tmp;
+
+
+            // let tile_center_world_pos = Vec3::new(
+            //     tile_pos.x as f32 * grid_size.x + grid_size.x / 2.0,
+            //     tile_pos.y as f32 * grid_size.y + grid_size.y / 2.0,
+            //     0.0,
+            // );
+            // let world_pos = transform.compute_matrix() * Vec4::new(tile_center_world_pos.x, tile_center_world_pos.y, tile_center_world_pos.z, 1.0);
+            // let world_pos = Vec3::new(world_pos.x, world_pos.y, world_pos.z);
+            // if mouse_button_input.pressed(MouseButton::Left) {
+            //     info!("left mouse currently pressed");
+            //     let skeleton = SkeletonData::new_from_json(
+            //         asset_server.load("spineboy/export/spineboy-pro.json"),
+            //         asset_server.load("spineboy/export/spineboy-pma.atlas"),
+            //     );
+            //     let skeleton_handle = skeletons.add(skeleton);
+            //
+            //
+            //     commands.spawn(SpineBundle {
+            //         skeleton: skeleton_handle.clone(),
+            //         transform: Transform::from_xyz(world_pos.x as f32, world_pos.y as f32, 10.),
+            //         ..Default::default()
+            //     });
+            // }
         }
     }
 
