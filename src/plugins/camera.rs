@@ -30,6 +30,7 @@ fn spawn_user_interface_camera(mut commands: Commands) {
             Camera2dBundle::default(),
             UiCamera
         ))
+        .insert(OrthographicCamera)
         .insert(UserInterfaceCamera);
 }
 

@@ -1,3 +1,4 @@
+use std::slice::Windows;
 use bevy::input::mouse::MouseButtonInput;
 use bevy::prelude::*;
 use bevy_ecs_tilemap::prelude::*;
@@ -39,9 +40,13 @@ pub fn place_entity(
         &TileStorage,
         &Transform
     )>) {
+    if !mouse_button_input.just_pressed(MouseButton::Left) {
+        return;
+    }
     let mut tile_pos: TilePos = Default::default();
     for (grid_size, size, tilemap_type, storage, transform) in tilemap_q.iter() {
         let cur_pos = cursor_pos.0;
+        info!("cursor_pos: {:?}", cur_pos);
 
         let cursor_in_map_pos: Vec2 = {
             // Extend the cursor_pos vec3 by 0.0 and 1.0
@@ -49,38 +54,37 @@ pub fn place_entity(
             let cursor_in_map_pos = transform.compute_matrix().inverse() * cursor_pos;
             cursor_in_map_pos.xy()
         };
+
+        info!("cursor_in_map_pos: {:?}", cursor_in_map_pos);
         // Once we have a world position we can transform it into a possible tile position.
         if let Some(tile_pos_tmp) =
             TilePos::from_world_pos(&cursor_in_map_pos, size, grid_size, tilemap_type)
         {
             tile_pos = tile_pos_tmp;
 
+            let center_pos = tile_pos_tmp.center_in_world(grid_size, tilemap_type);
 
-            // let tile_center_world_pos = Vec3::new(
-            //     tile_pos.x as f32 * grid_size.x + grid_size.x / 2.0,
-            //     tile_pos.y as f32 * grid_size.y + grid_size.y / 2.0,
-            //     0.0,
-            // );
-            // let world_pos = transform.compute_matrix() * Vec4::new(tile_center_world_pos.x, tile_center_world_pos.y, tile_center_world_pos.z, 1.0);
-            // let world_pos = Vec3::new(world_pos.x, world_pos.y, world_pos.z);
-            // if mouse_button_input.pressed(MouseButton::Left) {
-            //     info!("left mouse currently pressed");
-            //     let skeleton = SkeletonData::new_from_json(
-            //         asset_server.load("spineboy/export/spineboy-pro.json"),
-            //         asset_server.load("spineboy/export/spineboy-pma.atlas"),
-            //     );
-            //     let skeleton_handle = skeletons.add(skeleton);
-            //
-            //
-            //     commands.spawn(SpineBundle {
-            //         skeleton: skeleton_handle.clone(),
-            //         transform: Transform::from_xyz(world_pos.x as f32, world_pos.y as f32, 10.),
-            //         ..Default::default()
-            //     });
-            // }
+            info!("left mouse currently pressed");
+            let skeleton = SkeletonData::new_from_json(
+                asset_server.load("spineboy/export/spineboy-pro.json"),
+                asset_server.load("spineboy/export/spineboy-pma.atlas"),
+            );
+            let skeleton_handle = skeletons.add(skeleton);
+
+            let center_pos_world: Vec2 = {
+                // Extend the center_pos vec2 by 0.0 and 1.0
+                let center_pos_extended = Vec4::from((center_pos, 0.0, 1.0));
+                let center_pos_world = transform.compute_matrix() * center_pos_extended;
+                center_pos_world.xy()
+            };
+            commands.spawn(SpineBundle {
+                skeleton: skeleton_handle.clone(),
+                transform: Transform::from_xyz(center_pos_world.x, center_pos_world.y, 10.0),
+                ..Default::default()
+            });
+            info!(" added tile at global position: ({}, {})", center_pos.x, center_pos.y);
+            info!("center_pos in world coordinates: {:?}", center_pos_world);
         }
     }
-
-
 }
 
